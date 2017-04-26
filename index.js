@@ -3,6 +3,9 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
+
+var ObjectStorage = require('bluemix-objectstorage').ObjectStorage;
+
 //ToDo: List löschen bei disconnect und whisper. listen mergen
 var sockets = [];
 var id = 0;
@@ -13,9 +16,73 @@ var socketsSarah = [];
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
+var credentials = {
+	    projectId: 'project-id',
+	    userId: 'user-id',
+	    password: 'password',
+	    region: ObjectStorage.Region.DALLAS
+	};
 
 
+/*Use an ObjectStorage instance to connect to the IBM Object Storage service and manage containers.
+Pass in a credentials object containing projectId, userId, password, 
+and region to the ObjectStorage constructor in order to establish a connection 
+with the IBM Object Storage service on Bluemix*/
+var objStorage = new ObjectStorage(credentials);
 
+	objstorage.createContainer('user-password')
+    .then(function(container) {
+        // container - the ObjectStorageContainer that was created 
+    })
+    .catch(function(err) {
+        // AuthTokenError if there was a problem refreshing authentication token 
+        // ServerError if any unexpected status codes were returned from the request 
+    });
+}
+
+
+/*Note: If a credentials object is not passed into the ObjectStorage constructor, 
+then the constructor will attempt to read the appropriate values from VCAP_SERVICES. 
+If no entry for Object Storage can be found in VCAP_SERVICES, then an error will be thrown.*/
+//Retrieve a list of existing containers
+	objstorage.listContainers()
+	.then(function(containerList) {
+    // containerList - an array of ObjectStorageContainers 
+    // containerList may be empty 
+	})
+	.catch(function(err) {
+    // AuthTokenError if there was a problem refreshing authentication token 
+    // ServerError if any unexpected status codes were returned from the request 
+	});
+}
+
+
+//Create a new container
+objstorage.createContainer('container-name')
+    .then(function(container) {
+        // container - the ObjectStorageContainer that was created 
+    })
+    .catch(function(err) {
+        // AuthTokenError if there was a problem refreshing authentication token 
+        // ServerError if any unexpected status codes were returned from the request 
+    });
+}
+
+//
+//Object obj = parser.parse(envServices);
+//JSONObject jsonObject = (JSONObject) obj;
+//JSONArray vcapArray = (JSONArray) jsonObject.get("Object-Storage");
+//JSONObject vcap = (JSONObject) vcapArray.get(0);
+//JSONObject credentials = (JSONObject) vcap.get("credentials");
+//String userId = credentials.get("userId").toString();
+//String password = credentials.get("password").toString();
+//String auth_url = credentials.get("auth_url").toString() + "/v3";
+//String domain = credentials.get("domainName").toString();
+//String project = credentials.get("project").toString();
+//Identifier domainIdent = Identifier.byName(domain);
+//Identifier projectIdent = Identifier.byName(project);
+	
+	
 //Enable reverse proxy support in Express. This causes the
 //the "X-Forwarded-Proto" header field to be trusted so its
 //value can be used to determine the protocol. See 
