@@ -1,5 +1,5 @@
 var app = require('express')();
-var http = require('http').Server(app);
+var http = require('https').Server(app);
 var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 //ToDo: List löschen bei disconnect und whisper. listen mergen
