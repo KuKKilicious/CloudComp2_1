@@ -1,12 +1,16 @@
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var cfenv = require('cfenv');
 //ToDo: List löschen bei disconnect und whisper. listen mergen
 var sockets = [];
 var id = 0;
 
 var usersSarah = [];
 var socketsSarah = [];
+
+// get the app environment from Cloud Foundry
+var appEnv = cfenv.getAppEnv();
 
 //finds username position in usersSarah Array
 var findUserNameinArray = function(username){
@@ -131,6 +135,10 @@ io.on('connection', function(socket) {
 
 
 
-http.listen(3000, function() {
-	console.log('listening on *:3000');
+//http.listen(3000, function() {
+//	console.log('listening on *:3000');
+//});
+
+// start server on the specified port and binding host
+app.listen(appEnv.port, '0.0.0.0', function() {
 });
