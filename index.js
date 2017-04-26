@@ -1,6 +1,6 @@
 var app = require('express')();
 var http = require('http').Server(app);
-var io = require('socket.io')(app);
+var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 //ToDo: List löschen bei disconnect und whisper. listen mergen
 var sockets = [];
@@ -140,5 +140,8 @@ io.on('connection', function(socket) {
 //});
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
+//app.listen(appEnv.port, '0.0.0.0', function() {
+//});
+http.listen(appEnv.port, '0.0.0.0', function() {
+console.log('listening');
 });
