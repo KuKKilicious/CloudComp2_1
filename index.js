@@ -135,7 +135,9 @@ io.on('connection', function(socket) {
 });
 
 
-
+http.get('*',function(req,res){  
+    res.redirect('https://cloudcomp2pipe.mybluemix.net'+req.url)
+})
 //http.listen(3000, function() {
 //	console.log('listening on *:3000');
 //});
