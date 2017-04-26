@@ -20,7 +20,7 @@ var findUserNameinArray = function(username){
 
 
 app.get('/', function(req, res) {
-	res.sendFile(__dirname + '/index.html');
+	res.sendFile(__dirname + '/public/index.html');
 });
 var findUserSocket = function(username) {
 	for (var int = 0; int < sockets.length; int++) {
