@@ -38,7 +38,9 @@ Pass in a credentials object containing projectId, userId, password,
 and region to the ObjectStorage constructor in order to establish a connection 
 with the IBM Object Storage service on Bluemix*/
 var objStorage = new ObjectStorage;
-objStorage.createContainer("username-password")
+objStorage.getContainer("username-password").set("Sarah", "1");
+
+//objStorage.createContainer("username-password")
 //var objStorage = new ObjectStorage(credentials);
 
 //	objstorage.createContainer('user-password'){
