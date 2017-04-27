@@ -5,7 +5,7 @@ var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 
 var ObjectStorage = require('bluemix-objectstorage').ObjectStorage;
-var OVHStorage = require('node-ovh-objectstorage');
+//var OVHStorage = require('node-ovh-objectstorage');
 
 //ToDo: List löschen bei disconnect und whisper. listen mergen
 var sockets = [];
