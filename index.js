@@ -31,8 +31,8 @@ if (process.env.VCAP_SERVICES) {
 			credentials = storage[index].credentials;
 			console.log("storage.. : " + credentials);
 			//storage.. : [object Object]
-			var objectData = JSON.parse(credentials);
-			console.log("storage objet: " + objectData);
+			//no JSON-object :/ -->var objectData = JSON.parse(credentials);
+			//console.log("storage objet: " + objectData);
 		}
 		
 		//storage[]
