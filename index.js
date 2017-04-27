@@ -55,7 +55,6 @@ store.connection(
         // error 
       })
     }
-    function(err){}
   );
 
 /*Use an ObjectStorage instance to connect to the IBM Object Storage service and manage containers.

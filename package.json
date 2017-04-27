@@ -10,7 +10,8 @@
     "socket.io": "^1.7.3",
     "express": "4.13.x",
 	"cfenv": "1.0.x",
-	  "bluemix-objectstorage": "0.1.2"
+	  "bluemix-objectstorage": "0.1.2",
+	  "node-ovh-objectstorage" : "1.0.2"
   },
   "repository": {},
 	"engines": {
