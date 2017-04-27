@@ -33,6 +33,8 @@ if (process.env.VCAP_SERVICES) {
 			//storage.. : [object Object]
 			//no JSON-object :/ -->var objectData = JSON.parse(credentials);
 			//console.log("storage objet: " + objectData);
+			var username = config.Object-Storage[0].credentials.username;
+			console.log("username out of credentials: " + username);
 		}
 		
 		//storage[]
