@@ -43,7 +43,7 @@ if (process.env.VCAP_SERVICES) {
 	}
 }
 
-var store = new OVHStorage(config);
+//var store = new OVHStorage(config);
 //store.connection(
 //    function() {
       // connected 
