@@ -16,57 +16,59 @@ var socketsSarah = [];
 // get the app environment from Cloud Foundry
 var appEnv = cfenv.getAppEnv();
 
-var credentials = {
-	    projectId: 'project-id',
-	    userId: 'user-id',
-	    password: 'password',
-	    region: ObjectStorage.Region.DALLAS
-	};
+
+var config = null;
+var credentials = null;
+
+//get credentials
+if (process.env.VCAP_SERVICES) {
+	config = JSON.parse(process.env.VCAP_SERVICES);
+	
+	var storage = config['Object-Storage'];
+	for(var index in storage){
+		if (storage[index].name === 'Object Storage-pw') {
+			credentials = storage[index].credentials;
+		}
+	}
+}
 
 
 /*Use an ObjectStorage instance to connect to the IBM Object Storage service and manage containers.
 Pass in a credentials object containing projectId, userId, password, 
 and region to the ObjectStorage constructor in order to establish a connection 
 with the IBM Object Storage service on Bluemix*/
-var objStorage = new ObjectStorage(credentials);
+var objStorage = new ObjectStorage;
+objStorage.createContainer("username-password")
+//var objStorage = new ObjectStorage(credentials);
 
-	objstorage.createContainer('user-password')
-    .then(function(container) {
-        // container - the ObjectStorageContainer that was created 
-    })
-    .catch(function(err) {
-        // AuthTokenError if there was a problem refreshing authentication token 
-        // ServerError if any unexpected status codes were returned from the request 
-    });
-}
+//	objstorage.createContainer('user-password'){
+//    .then(function(container) {
+//    	
+//        // container - the ObjectStorageContainer that was created 
+//    	
+//    })
+//    .catch(function(err) {
+//        // AuthTokenError if there was a problem refreshing authentication token 
+//        // ServerError if any unexpected status codes were returned from the request 
+//    });
+//}
 
 
 /*Note: If a credentials object is not passed into the ObjectStorage constructor, 
 then the constructor will attempt to read the appropriate values from VCAP_SERVICES. 
 If no entry for Object Storage can be found in VCAP_SERVICES, then an error will be thrown.*/
 //Retrieve a list of existing containers
-	objstorage.listContainers()
-	.then(function(containerList) {
-    // containerList - an array of ObjectStorageContainers 
-    // containerList may be empty 
-	})
-	.catch(function(err) {
-    // AuthTokenError if there was a problem refreshing authentication token 
-    // ServerError if any unexpected status codes were returned from the request 
-	});
-}
+//	objstorage.listContainers()
+//	.then(function(containerList) {
+//    // containerList - an array of ObjectStorageContainers 
+//    // containerList may be empty 
+//	})
+//	.catch(function(err) {
+//    // AuthTokenError if there was a problem refreshing authentication token 
+//    // ServerError if any unexpected status codes were returned from the request 
+//	});
+//}
 
-
-//Create a new container
-objstorage.createContainer('container-name')
-    .then(function(container) {
-        // container - the ObjectStorageContainer that was created 
-    })
-    .catch(function(err) {
-        // AuthTokenError if there was a problem refreshing authentication token 
-        // ServerError if any unexpected status codes were returned from the request 
-    });
-}
 
 //
 //Object obj = parser.parse(envServices);
