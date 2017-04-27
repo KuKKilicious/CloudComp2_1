@@ -44,18 +44,18 @@ if (process.env.VCAP_SERVICES) {
 }
 
 var store = new OVHStorage(config);
-store.connection(
-    function() {
+//store.connection(
+//    function() {
       // connected 
-      store.container().create('usercontainer', function() {
-	      console.log("usercontainer created..");
+//      store.container().create('usercontainer', function() {
+//	      console.log("usercontainer created..");
         // success 
-      },
-      function(err){
+ //     },
+//      function(err){
         // error 
-      })
-    }
-  );
+//      })
+//    }
+//  );
 
 /*Use an ObjectStorage instance to connect to the IBM Object Storage service and manage containers.
 Pass in a credentials object containing projectId, userId, password, 
