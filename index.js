@@ -5,6 +5,7 @@ var io = require('socket.io')(http);
 var cfenv = require('cfenv');
 
 var ObjectStorage = require('bluemix-objectstorage').ObjectStorage;
+var OVHStorage = require('node-ovh-objectstorage');
 
 //ToDo: List löschen bei disconnect und whisper. listen mergen
 var sockets = [];
@@ -42,14 +43,28 @@ if (process.env.VCAP_SERVICES) {
 	}
 }
 
+var store = new OVHStorage(config);
+store.connection(
+    function() {
+      // connected 
+      store.container().create('usercontainer', function() {
+	      console.log("usercontainer created..");
+        // success 
+      },
+      function(err){
+        // error 
+      })
+    }
+    function(err){}
+  );
 
 /*Use an ObjectStorage instance to connect to the IBM Object Storage service and manage containers.
 Pass in a credentials object containing projectId, userId, password, 
 and region to the ObjectStorage constructor in order to establish a connection 
 with the IBM Object Storage service on Bluemix*/
-var objStorage = new ObjectStorage(config);
-console.log("objStorage:  " + objStorage.getContainerList());
-objStorage.getContainer("username-password").set("Sarah", "1");
+//var objStorage = new ObjectStorage(config);
+//console.log("objStorage:  " + objStorage.getContainerList());
+//objStorage.getContainer("username-password").set("Sarah", "1");
 
 
 //objStorage.createContainer("username-password")
