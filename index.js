@@ -30,6 +30,9 @@ if (process.env.VCAP_SERVICES) {
 		if (storage[index].name === 'Object Storage-pw') {
 			credentials = storage[index].credentials;
 			console.log("storage.. : " + credentials);
+			//storage.. : [object Object]
+			var objectData = JSON.parse(credentials);
+			console.log("storage objet: " + objectData);
 		}
 		
 		//storage[]
@@ -188,7 +191,7 @@ io.on('connection', function(socket) {
 io.on('connection', function(socket) {
 	// Manage something with the socket
 	io.emit('user connects');
-	console.log("cre - config.Object-Storage[0]: " + config.Object-Storage[0]);
+	//throws error--> console.log("cre - config.Object-Storage[0]: " + config.Object-Storage[0]);
 	sockets.push(socket);
 	if (id >= 0) {
 		id++;
