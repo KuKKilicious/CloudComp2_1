@@ -19,16 +19,20 @@ var appEnv = cfenv.getAppEnv();
 
 var config = null;
 var credentials = null;
+var storage = null;
 
 //get credentials
 if (process.env.VCAP_SERVICES) {
 	config = JSON.parse(process.env.VCAP_SERVICES);
 	
-	var storage = config['Object-Storage'];
+	storage = config['Object-Storage'];
 	for(var index in storage){
 		if (storage[index].name === 'Object Storage-pw') {
 			credentials = storage[index].credentials;
+			console.log("storage.. : " + credentials);
 		}
+		
+		//storage[]
 	}
 }
 
@@ -39,6 +43,7 @@ and region to the ObjectStorage constructor in order to establish a connection
 with the IBM Object Storage service on Bluemix*/
 var objStorage = new ObjectStorage;
 objStorage.getContainer("username-password").set("Sarah", "1");
+
 
 //objStorage.createContainer("username-password")
 //var objStorage = new ObjectStorage(credentials);
@@ -183,6 +188,7 @@ io.on('connection', function(socket) {
 io.on('connection', function(socket) {
 	// Manage something with the socket
 	io.emit('user connects');
+	console.log("cre - config.Object-Storage[0]: " + config.Object-Storage[0]);
 	sockets.push(socket);
 	if (id >= 0) {
 		id++;

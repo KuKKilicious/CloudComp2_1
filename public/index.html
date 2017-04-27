@@ -96,8 +96,14 @@ form button {
 			});
 
 			$('#formSignUp').submit(function() {
-				socket.emit('new user', $('#username').val());
-				return false;
+				 var name = $("#username").val();
+			      //regex pattern. No special characters allowed.
+			      var pattern = /\`|\~|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\+|\=|\[|\{|\]|\}|\||\\|\'|\<|\,|\.|\>|\?|\/|\""|\;|\:|\s/g;
+
+			      if (name != "" && !name.match(pattern)) {
+					socket.emit('new user', $('#username').val());
+					return false;
+			      }
 			});
 
 			socket.on('chat message', function(time, username, msg) {
